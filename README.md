@@ -34,9 +34,10 @@ Equity volatility skew fluctuates with fear/complacency cycles. PCA decompositio
 
 ```
 skew_trade/
-├── main.py                # Vol surface construction pipeline
-├── trade_data.py          # Option structure framework, trade building, validation
-├── walk_forward.py        # Walk-forward PCA (756d rolling window, deciles)
+├── src/
+│   ├── main.py            # Vol surface construction pipeline
+│   ├── trade_data.py      # Option structure framework, trade building, validation
+│   └── walk_forward.py    # Walk-forward PCA (756d rolling window, deciles)
 ├── notebooks/
 │   ├── 00_data_quality.ipynb              # Surface data validation
 │   ├── 01_raw_skew.ipynb                  # Simple skew metrics, ACF, OU half-life
@@ -48,6 +49,7 @@ skew_trade/
 │   ├── 07_signal_strategy.ipynb           # PC2 conditioned strategy (D9-10 gate)
 │   ├── 08_conditioned_strategy.ipynb      # Five-state conditioned backtest
 │   └── 09_walk_forward_validation.ipynb   # Expanding-window OOS validation
+├── pyproject.toml         # Project config and dependencies
 └── README.md              # This file
 ```
 
@@ -75,16 +77,25 @@ All notebooks read from pre-generated parquet files in `data/`. If `data/` is po
                                                              09 Walk-Forward Validation
 ```
 
+## Installation
+
+```bash
+git clone https://github.com/lanteignel93/skew_trade.git
+cd skew_trade
+uv venv
+source .venv/bin/activate
+uv pip install -e ".[dev]"
+```
+
+> Requires [uv](https://github.com/astral-sh/uv) and Python 3.10+.
+
 ## Dependencies
 
-```
-polars
-numpy
-scipy
-scikit-learn
-matplotlib
-seaborn
-```
+Core: `polars`, `numpy`, `scipy`, `scikit-learn`, `statsmodels`, `matplotlib`, `seaborn`
+
+Dev: `ruff`, `mypy`, `pre-commit`, `jupyter`, `notebook`
+
+Full dependency spec in `pyproject.toml`.
 
 ## License
 
